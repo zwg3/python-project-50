@@ -36,7 +36,7 @@ test = ["pytest (>=6)"]
 name = "flake8"
 version = "6.0.0"
 description = "the modular source code checker: pep8 pyflakes and co"
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3.8.1"
 
@@ -57,7 +57,7 @@ python-versions = ">=3.7"
 name = "mccabe"
 version = "0.7.0"
 description = "McCabe checker, plugin for flake8"
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3.6"
 
@@ -85,7 +85,7 @@ testing = ["pytest", "pytest-benchmark"]
 name = "pycodestyle"
 version = "2.10.0"
 description = "Python style guide checker"
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3.6"
 
@@ -93,7 +93,7 @@ python-versions = ">=3.6"
 name = "pyflakes"
 version = "3.0.1"
 description = "passive checker of Python programs"
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3.6"
 
@@ -128,7 +128,7 @@ python-versions = ">=3.7"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.10"
-content-hash = "d152e78e92cb3f72fb531774668e004aebe5421313455cdcfcda2f5aa7d087a1"
+content-hash = "697ee0e3556d4d97fd578f32e305861186b9478600c11221ce72078bab5c7ae9"
 
 [metadata.files]
 attrs = [
