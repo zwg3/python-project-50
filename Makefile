@@ -7,6 +7,9 @@ publish:
 package-install:
 	python3 -m pip install --user dist/gendiff-0.1.0-py3-none-any.whl
 gen:
-	poetry run gendiff
+	poetry run gendiff $(first_file) $(second_file)
 lint:
 	poetry run flake8 gendiff
+test:
+	poetry run pytest
+
