@@ -3,6 +3,7 @@ import yaml
 import json
 import copy
 
+
 def open_files(file_path):
     file = yaml.load(open(file_path), Loader=yaml.FullLoader)
     return file

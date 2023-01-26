@@ -2,6 +2,7 @@
 import json
 import copy
 
+
 def open_files(file_path):
     file = json.load(open(file_path))
     return file
