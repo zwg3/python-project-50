@@ -1,6 +1,4 @@
 #!/usr/bin/env python3
-import json
-import os
 
 def get_data(first, second):
     ss = set(list(first) + list(second))
@@ -36,18 +34,3 @@ def get_data(first, second):
             diff["Value"] = get_data(first[i], second[i])
             data_list[i] = diff
     return data_list
-
-def open_files(file_path):
-    file = json.load(open(file_path))
-    return file
-
-f1 = open_files('tests/fixtures/test_json/file3.json')
-f2 = open_files('tests/fixtures/test_json/file4.json')
-
-print(f1)
-
-# a = str(get_data(f1, f2))
-# print(a)
-# with open(os.path.abspath('tests/fixtures/test_json/diff_result_raw.md')) as test_file:
-#         test_file = test_file.read().rstrip('\n')
-#         print(test_file == a)
