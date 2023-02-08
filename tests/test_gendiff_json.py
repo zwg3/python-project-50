@@ -1,6 +1,8 @@
 import pytest
 import os
-from gendiff.scripts import gendiff_json
+from Gendiff.scripts import gendiff_json
+from Gendiff.scripts import gendata
+from Gendiff.scripts import stylish
 
 
 @pytest.fixture
@@ -19,14 +21,16 @@ def test_gen_raw():
     file_2 = gendiff_json.open_files(os.path.abspath('tests/fixtures/test_json/file4.json'))
     with open(os.path.abspath('tests/fixtures/test_json/diff_result_raw.md')) as test_file:
         test_file = test_file.read().rstrip('\n')
-    assert str(gendiff_json.get_raw_diff(file_1, file_2)) == test_file
+    assert str(gendata.get_data(file_1, file_2)) == test_file
 
 
-def test_final_diff():
+def test_stylish():
     file_1 = gendiff_json.open_files(os.path.abspath('tests/fixtures/test_json/file3.json'))
     file_2 = gendiff_json.open_files(os.path.abspath('tests/fixtures/test_json/file4.json'))
-    raw = gendiff_json.get_raw_diff(file_1, file_2)
-    final_diff = gendiff_json.generate_diff(raw)
+    raw = gendata.get_data(file_1, file_2)
+    final_diff = stylish.stylish(raw)
     with open('tests/fixtures/test_json/diff_result_final.md') as test_file:
         test_file = test_file.read().rstrip('\n')
     assert final_diff ==  test_file
+
+print(test_stylish)

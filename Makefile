@@ -9,7 +9,7 @@ package-install:
 gen:
 	poetry run gendiff $(first_file) $(second_file)
 lint:
-	poetry run flake8 gendiff
+	poetry run flake8 Gendiff
 test:
 	poetry run pytest
 test-coverage:
