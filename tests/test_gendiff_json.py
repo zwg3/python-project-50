@@ -3,6 +3,7 @@ import os
 from Gendiff.scripts import gendiff_json
 from Gendiff.scripts import gendata
 from Gendiff.scripts import stylish
+from Gendiff.scripts import plain
 
 
 @pytest.fixture
@@ -29,8 +30,16 @@ def test_stylish():
     file_2 = gendiff_json.open_files(os.path.abspath('tests/fixtures/test_json/file4.json'))
     raw = gendata.get_data(file_1, file_2)
     final_diff = stylish.stylish(raw)
-    with open('tests/fixtures/test_json/diff_result_final.md') as test_file:
+    with open('tests/fixtures/test_json/diff_result_stylish.md') as test_file:
         test_file = test_file.read().rstrip('\n')
     assert final_diff ==  test_file
 
-print(test_stylish)
+
+def test_plain():
+    file_1 = gendiff_json.open_files(os.path.abspath('tests/fixtures/test_json/file3.json'))
+    file_2 = gendiff_json.open_files(os.path.abspath('tests/fixtures/test_json/file4.json'))
+    raw = gendata.get_data(file_1, file_2)
+    final_diff = plain.plain(plain.same_deleter(raw))
+    with open('tests/fixtures/test_json/diff_result_plain.md') as test_file:
+        test_file = test_file.read().rstrip('\n')
+    assert final_diff ==  test_file
