@@ -62,7 +62,7 @@ def main():
     if args.format == "plain":
         print(plain_format.plain(plain_format.same_deleter(
             generate_diff(files[0], files[1]))))
-    elif args.format == "stylish" or "json":
+    elif args.format == "json":
         print(json_format.json_(generate_diff(files[0], files[1])))
     else:
         print(stylish_format.stylish(generate_diff(files[0], files[1])))

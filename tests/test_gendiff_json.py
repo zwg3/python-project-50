@@ -1,6 +1,5 @@
 import pytest
 import os
-import sys
 from gendiff import gendiff_json
 from gendiff import gendiff
 from gendiff import stylish_format
