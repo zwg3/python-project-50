@@ -1,11 +1,10 @@
 import pytest
 import os
 import sys
-#sys.path.append(f'{os.getcwd()}/')
-from gendiff.scripts import gendiff_json
-from gendiff.scripts import gendata
-from gendiff.scripts import stylish_format
-from gendiff.scripts import plain_format
+from gendiff import gendiff_json
+from gendiff import gendiff
+from gendiff import stylish_format
+from gendiff import plain_format
 
 
 @pytest.fixture
@@ -24,13 +23,13 @@ def test_gen_raw():
     file_2 = gendiff_json.open_files(os.path.abspath('tests/fixtures/test_json/file4.json'))
     with open(os.path.abspath('tests/fixtures/test_json/diff_result_raw.md')) as test_file:
         test_file = test_file.read().rstrip('\n')
-    assert str(gendata.generate_diff(file_1, file_2)) == test_file
+    assert str(gendiff.generate_diff(file_1, file_2)) == test_file
 
 
 def test_stylish():
     file_1 = gendiff_json.open_files(os.path.abspath('tests/fixtures/test_json/file3.json'))
     file_2 = gendiff_json.open_files(os.path.abspath('tests/fixtures/test_json/file4.json'))
-    raw = gendata.generate_diff(file_1, file_2)
+    raw = gendiff.generate_diff(file_1, file_2)
     final_diff = stylish_format.stylish(raw)
     with open('tests/fixtures/test_json/diff_result_stylish.md') as test_file:
         test_file = test_file.read().rstrip('\n')
@@ -40,7 +39,7 @@ def test_stylish():
 def test_plain():
     file_1 = gendiff_json.open_files(os.path.abspath('tests/fixtures/test_json/file3.json'))
     file_2 = gendiff_json.open_files(os.path.abspath('tests/fixtures/test_json/file4.json'))
-    raw = gendata.generate_diff(file_1, file_2)
+    raw = gendiff.generate_diff(file_1, file_2)
     final_diff = plain_format.plain(plain_format.same_deleter(raw))
     with open('tests/fixtures/test_json/diff_result_plain.md') as test_file:
         test_file = test_file.read().rstrip('\n')

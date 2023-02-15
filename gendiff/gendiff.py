@@ -2,7 +2,6 @@
 import argparse
 from . import gendiff_yml
 from . import gendiff_json
-#from . import gendata
 from . import stylish_format
 from . import plain_format
 from . import json_format
@@ -62,11 +61,11 @@ def main():
             files[i] = gendiff_yml.open_files(files[i])
     if args.format == "plain":
         print(plain_format.plain(plain_format.same_deleter(
-            gendata.generate_diff(files[0], files[1]))))
+            generate_diff(files[0], files[1]))))
     elif args.format == "stylish" or "json":
-        print(json_format.json_(gendata.generate_diff(files[0], files[1])))
+        print(json_format.json_(generate_diff(files[0], files[1])))
     else:
-        print(stylish_format.stylish(gendata.generate_diff(files[0], files[1])))
+        print(stylish_format.stylish(generate_diff(files[0], files[1])))
 
 
 if __name__ == "__main__":
