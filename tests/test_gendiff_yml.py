@@ -1,11 +1,11 @@
 import pytest
 import os
 import sys
-sys.path.append(f'{os.getcwd()}/')
-from Gendiff.scripts import gendiff_yml
-from Gendiff.scripts import gendata
-from Gendiff.scripts import stylish_format
-from Gendiff.scripts import plain_format
+#sys.path.append(f'{os.getcwd()}/')
+from gendiff.scripts import gendiff_yml
+from gendiff.scripts import gendata
+from gendiff.scripts import stylish_format
+from gendiff.scripts import plain_format
 
 @pytest.fixture
 def open_file_1():

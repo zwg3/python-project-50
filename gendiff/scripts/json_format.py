@@ -1,4 +1,4 @@
-import Gendiff.scripts.stylish_format as stylish_format
+import gendiff.scripts.stylish_format as stylish_format
 
 
 def json_(dict_data):
