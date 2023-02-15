@@ -3,8 +3,9 @@ import argparse
 from . import gendiff_yml
 from . import gendiff_json
 from . import gendata
-from . import stylish
-from . import plain
+from . import stylish_format
+from . import plain_format
+from . import json_format
 
 
 def main():
@@ -15,24 +16,20 @@ def main():
     parser.add_argument('first_file')
     parser.add_argument('second_file')
     parser.add_argument('-f', '--format',
-                        help='set format of output', default=stylish)
+                        help='set format of output', default=stylish_format)
     args = parser.parse_args()
+    files = [args.first_file] + [args.second_file]
+    for i in range(len(files)):
+        if str(files[i]).endswith('.json'):
+            files[i] = gendiff_json.open_files(files[i])
+        elif str(files[i]).endswith('.yml') or str(files[i]).endswith('.yaml'):
+            files[i] = gendiff_yml.open_files(files[i])
     if args.format == "plain":
-        if str(args.first_file).endswith('.json'):
-            print(plain.plain(gendata.get_data(gendiff_json.open_files(
-                args.first_file), gendiff_json.open_files(args.second_file))))
-        elif str(args.first_file).endswith('.yml') or (str(
-                args.first_file).endswith('.yaml')):
-            print(plain.plain(gendata.get_data(gendiff_yml.open_files(
-                args.first_file), gendiff_yml.open_files(args.second_file))))
+        print(plain_format.plain(plain_format.same_deleter(gendata.generate_diff(files[0], files[1]))))
+    elif args.format == "stylish" or "json":
+        print(json_format.json_(gendata.generate_diff(files[0], files[1])))
     else:
-        if str(args.first_file).endswith('.json'):
-            print(stylish.stylish(gendata.get_data(gendiff_json.open_files(
-                args.first_file), gendiff_json.open_files(args.second_file))))
-        elif str(args.first_file).endswith('.yml') or (str(
-                args.first_file).endswith('.yaml')):
-            print(stylish.stylish(gendata.get_data(gendiff_yml.open_files(
-                args.first_file), gendiff_yml.open_files(args.second_file))))
+        print(stylish_format.stylish(gendata.generate_diff(files[0], files[1])))
 
 
 if __name__ == "__main__":

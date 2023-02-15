@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-def get_data(first, second):
+def generate_diff(first, second):
     ss = set(list(first) + list(second))
     data_list = {}
     for i in dict.fromkeys(sorted(ss)):
@@ -31,6 +31,6 @@ def get_data(first, second):
         else:
             diff["Key"] = i
             diff["Type"] = "parent"
-            diff["Value"] = get_data(first[i], second[i])
+            diff["Value"] = generate_diff(first[i], second[i])
             data_list[i] = diff
     return data_list
