@@ -25,7 +25,8 @@ def main():
         elif str(files[i]).endswith('.yml') or str(files[i]).endswith('.yaml'):
             files[i] = gendiff_yml.open_files(files[i])
     if args.format == "plain":
-        print(plain_format.plain(plain_format.same_deleter(gendata.generate_diff(files[0], files[1]))))
+        print(plain_format.plain(plain_format.same_deleter(
+            gendata.generate_diff(files[0], files[1]))))
     elif args.format == "stylish" or "json":
         print(json_format.json_(gendata.generate_diff(files[0], files[1])))
     else:
