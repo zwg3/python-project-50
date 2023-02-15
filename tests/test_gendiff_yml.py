@@ -1,5 +1,7 @@
 import pytest
 import os
+import sys
+sys.path.append(f'{os.getcwd()}/')
 from Gendiff.scripts import gendiff_yml
 from Gendiff.scripts import gendata
 from Gendiff.scripts import stylish_format
