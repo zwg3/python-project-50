@@ -19,7 +19,7 @@ The program is used to find differences between two files (.json or .yml format)
 After the installation use the following commands:
 - gendiff -f stylish <filepath1> <filepath2> (gets you a default difference)
 - gendiff -f json <filepath1> <filepath2> (gets you a json-formated difference)
-- gendiff -f plain <filepath1> <filepath2> (gets you a plain difference)
+- gendiff -f plain <filepath1> <filepath2> (gets you a plain difference)  
 Note: if you do not specify the format (via -f), stylish format will be used as a default one.
 
 ### Basic info
