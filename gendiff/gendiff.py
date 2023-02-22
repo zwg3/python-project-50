@@ -17,24 +17,40 @@ def get_arguments():
     parser.add_argument('-f', '--format',
                         help='set format of output', default='stylish_format')
     args = parser.parse_args()
-    filepaths = [args.first_file] + [args.second_file]
+    filepath1 = args.first_file
+    filepath2 = args.second_file
     formater = args.format
-    return filepaths, formater
+    return filepath1, filepath2, formater
 
 
-def open_files(filepaths):
-    for i in range(len(filepaths)):
-        if str(filepaths[i]).endswith('.json'):
-            filepaths[i] = [json.load(open(filepaths[i]))]
-        elif str(filepaths[i]).endswith('.yml') or str(
-                filepaths[i]).endswith('.yaml'):
-            filepaths[i] = [yaml.load(open(filepaths[i]),
-                            Loader=yaml.FullLoader)]
-    return [item for sublist in filepaths for item in sublist]
+def open_files(filepath):
+    if str(filepath).endswith('.json'):
+        file = json.load(open(filepath))
+        return file
+    elif str(filepath).endswith('.yml') or str(filepath).endswith('.yaml'):
+        file = yaml.load(open(filepath), Loader=yaml.FullLoader)
+        return file
+    else:
+        return filepath
 
 
-def generate_diff(files):
-    first, second = files
+def print_final(arguments):
+    filepath1, filepath2, format_type = arguments
+    if format_type == "plain":
+        print(plain_format.plain(
+              plain_format.same_deleter(
+                  generate_diff(filepath1, filepath2, format_type))))
+    elif format_type == "json":
+        print(json_format.json_(
+            generate_diff(filepath1, filepath2, format_type)))
+    else:
+        print(stylish_format.stylish(
+            generate_diff(filepath1, filepath2, format_type)))
+
+
+def generate_diff(filepath_1, filepath_2, formater=""):
+    first = open_files(filepath_1)
+    second = open_files(filepath_2)
     keys = set(list(first) + list(second))
     data_list = {}
     for i in dict.fromkeys(sorted(keys)):
@@ -65,20 +81,9 @@ def generate_diff(files):
         else:
             diff["Key"] = i
             diff["Type"] = "parent"
-            diff["Value"] = generate_diff([first[i], second[i]])
+            diff["Value"] = generate_diff(first[i], second[i], '')
             data_list[i] = diff
     return data_list
-
-
-def print_final(arguments):
-    filepaths, format_type = arguments
-    if format_type == "plain":
-        print(plain_format.plain(plain_format.same_deleter(
-            generate_diff(open_files(filepaths)))))
-    elif format_type == "json":
-        print(json_format.json_(generate_diff(open_files(filepaths))))
-    else:
-        print(stylish_format.stylish(generate_diff(open_files(filepaths))))
 
 
 def main():
