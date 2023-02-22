@@ -31,6 +31,7 @@ def plain_formater_simple(property, parent=''):
 
 def plain_formater_complex(property, parent=''):
     start_string = 'Property '
+    parent_string = ""
     if parent:
         parent_string = f'{parent}.'
     if isinstance(property['Value'], dict):
@@ -42,10 +43,16 @@ def plain_formater_complex(property, parent=''):
                 f" was updated."
                 f" From {json.dumps(property['Value'])} to '[complex value]'")
     else:
-        return (f"{start_string}'{parent_string}{property['Key']}'"
-                f" was updated."
-                f" From {json.dumps(property['Value'])}"
-                f" to {json.dumps(property['Value_new'])}")
+        if parent_string:
+            return (f"{start_string}'{parent_string}{property['Key']}'"
+                    f" was updated."
+                    f" From {json.dumps(property['Value'])}"
+                    f" to {json.dumps(property['Value_new'])}")
+        else:
+            return (f"{start_string}'{property['Key']}'"
+                    f" was updated."
+                    f" From {json.dumps(property['Value'])}"
+                    f" to {json.dumps(property['Value_new'])}")
 
 
 def plain(raw_data, parent=False):
