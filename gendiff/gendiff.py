@@ -2,7 +2,6 @@
 import argparse
 from . import stylish_format
 from . import plain_format
-from . import json_format
 import json
 import yaml
 
@@ -41,14 +40,23 @@ def print_final(arguments):
               plain_format.same_deleter(
                   generate_diff(filepath1, filepath2, format_type))))
     elif format_type == "json":
-        print(json_format.json_(
-            generate_diff(filepath1, filepath2, format_type)))
+        print(json.dumps(
+            generate_diff(
+                filepath1, filepath2, format_type),
+            indent=4).replace(',', '').replace('"', ''))
     else:
         print(stylish_format.stylish(
             generate_diff(filepath1, filepath2, format_type)))
 
 
-def generate_diff(filepath_1, filepath_2, formater=""):
+def basic_formater(diff_data, depth=""):
+    if depth != 1:
+        diff_data = json.dumps(
+            diff_data, indent=4).replace(',', '').replace('"', '')
+    return diff_data
+
+
+def generate_diff(filepath_1, filepath_2, formater="", depth=""):
     first = open_files(filepath_1)
     second = open_files(filepath_2)
     keys = set(list(first) + list(second))
@@ -81,7 +89,7 @@ def generate_diff(filepath_1, filepath_2, formater=""):
         else:
             diff["Key"] = i
             diff["Type"] = "parent"
-            diff["Value"] = generate_diff(first[i], second[i], '')
+            diff["Value"] = generate_diff(first[i], second[i], '', depth=1)
             data_list[i] = diff
     return data_list
 
