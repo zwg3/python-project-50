@@ -38,25 +38,18 @@ def print_final(arguments):
     if format_type == "plain":
         print(plain_format.plain(
               plain_format.same_deleter(
-                  generate_diff(filepath1, filepath2, format_type))))
+                  get_data(filepath1, filepath2, format_type))))
     elif format_type == "json":
         print(json.dumps(
-            generate_diff(
+            get_data(
                 filepath1, filepath2, format_type),
             indent=4).replace(',', '').replace('"', ''))
     else:
         print(stylish_format.stylish(
-            generate_diff(filepath1, filepath2, format_type)))
+            get_data(filepath1, filepath2, format_type)))
 
 
-def basic_formater(diff_data, depth=""):
-    if depth != 1:
-        diff_data = json.dumps(
-            diff_data, indent=4).replace(',', '').replace('"', '')
-    return diff_data
-
-
-def generate_diff(filepath_1, filepath_2, formater="", depth=""):
+def get_data(filepath_1, filepath_2, formater=""):
     first = open_files(filepath_1)
     second = open_files(filepath_2)
     keys = set(list(first) + list(second))
@@ -89,9 +82,13 @@ def generate_diff(filepath_1, filepath_2, formater="", depth=""):
         else:
             diff["Key"] = i
             diff["Type"] = "parent"
-            diff["Value"] = generate_diff(first[i], second[i], '', depth=1)
+            diff["Value"] = get_data(first[i], second[i], '')
             data_list[i] = diff
     return data_list
+
+
+def generate_diff(filepath1, filepath2):
+    return stylish_format.stylish(get_data(filepath1, filepath2))
 
 
 def main():
