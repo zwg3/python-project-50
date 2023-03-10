@@ -19,7 +19,7 @@ def test_open(open_file_1):
 
 
 def test_gen_raw():
-    files = gendiff.generate_diff(gendiff.open_files(
+    files = gendiff.get_data(gendiff.open_files(
         os.path.abspath('tests/fixtures/test_json/file3.json')),
         (os.path.abspath('tests/fixtures/test_json/file4.json')))
     with open(os.path.abspath(
@@ -29,7 +29,7 @@ def test_gen_raw():
 
 
 def test_stylish():
-    raw = gendiff.generate_diff(gendiff.open_files(
+    raw = gendiff.get_data(gendiff.open_files(
         os.path.abspath('tests/fixtures/test_json/file3.json')),
         (os.path.abspath('tests/fixtures/test_json/file4.json')))
     final_diff = stylish_format.stylish(raw)
@@ -39,7 +39,7 @@ def test_stylish():
 
 
 def test_plain():
-    raw = gendiff.generate_diff(gendiff.open_files(
+    raw = gendiff.get_data(gendiff.open_files(
         os.path.abspath('tests/fixtures/test_json/file3.json')),
         (os.path.abspath('tests/fixtures/test_json/file4.json')))
     final_diff = plain_format.plain(plain_format.same_deleter(raw))
