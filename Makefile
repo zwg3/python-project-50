@@ -5,7 +5,7 @@ build:
 publish:
 	poetry publish --dry-run
 package-install:
-	python3 -m pip install --user dist/gendiff-0.1.0-py3-none-any.whl
+	python3 -m pip install --force-reinstall --user dist/hexlet_code-0.1.0-py3-none-any.whl
 gen:
 	poetry run gendiff $(first_file) $(second_file)
 lint:
