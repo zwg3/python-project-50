@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import json
 
+
 def formating_children(parent_d):
     formated_d = {}
     for i in parent_d:
@@ -41,19 +42,3 @@ def stylish(raw_data, recursion_depth=0):
                                   indent=4).replace(',', '').replace('"', '')
         return stylish_dict
     return stylish_dict
-
-
-# def stylish(raw_data, recursion_depth=0):
-#     recursion_depth += 1
-#     stylish_dict = {}
-#     for i in raw_data:
-#         if raw_data[i]["Type"] == "parent":
-#             stylish_dict["  " + raw_data[i]["Key"]] = formating_parents(
-#                 raw_data[i]["Value"])
-#         else:
-#             stylish_dict.update(formating_children(raw_data))
-#     if recursion_depth == 1:
-#         stylish_dict = json.dumps(stylish_dict,
-#                                   indent=4).replace(',', '').replace('"', '')
-#         return stylish_dict
-#     return stylish_dict
