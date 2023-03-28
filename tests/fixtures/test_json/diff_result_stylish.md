@@ -1,5 +1,5 @@
 {
-      common: {
+     common: {
         + follow: false
           setting1: Value 1
         - setting2: 200
@@ -18,7 +18,7 @@
             + ops: vops
         }
     }
-      group1: {
+     group1: {
         - baz: bas
         + baz: bars
           foo: bar
@@ -42,4 +42,5 @@
         fee: 100500
     }
 }
+
 
