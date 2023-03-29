@@ -8,7 +8,7 @@ def formating_children(parent_d):
         if parent_d[i]["Type"] == "removed":
             formated_d["- " + parent_d[i]["Key"]] = parent_d[i]["Value"]
         elif parent_d[i]["Type"] == "same":
-            formated_d["  " + parent_d[i]["Key"]] = parent_d[i]["Value"]
+            formated_d["" + parent_d[i]["Key"]] = parent_d[i]["Value"]
         elif parent_d[i]["Type"] == "added":
             formated_d["+ " + parent_d[i]["Key"]] = parent_d[i]["Value"]
         elif parent_d[i]["Type"] == "changed":
@@ -23,7 +23,7 @@ def formating_parents(dict_data):
         if dict_data[i]["Type"] != "parent":
             formated_dict.update(formating_children(dict_data))
         else:
-            formated_dict["  " + dict_data[i]["Key"]] = formating_parents(
+            formated_dict["" + dict_data[i]["Key"]] = formating_parents(
                 dict_data[i]["Value"])
     return formated_dict
 
@@ -33,12 +33,13 @@ def stylish(raw_data, recursion_depth=0):
     stylish_dict = {}
     for i in raw_data:
         if raw_data[i]["Type"] == "parent":
-            stylish_dict[" " + raw_data[i]["Key"]] = formating_parents(
+            stylish_dict["" + raw_data[i]["Key"]] = formating_parents(
                 raw_data[i]["Value"])
         else:
             stylish_dict.update(formating_children(raw_data))
     if recursion_depth == 1:
         stylish_dict = json.dumps(stylish_dict,
                                   indent=4).replace(',', '').replace('"', '')
+        stylish_dict = stylish_dict.replace('  +', '+').replace('  -', '-')
         return stylish_dict
     return stylish_dict
