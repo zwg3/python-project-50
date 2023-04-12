@@ -3,6 +3,7 @@ import json
 
 
 def formating_children(parent_d):
+    parent_d = sort_dict(parent_d)
     formated_d = {}
     for i in parent_d:
         if parent_d[i]["Type"] == "removed":
@@ -15,6 +16,17 @@ def formating_children(parent_d):
             formated_d["- " + parent_d[i]["Key"]] = parent_d[i]["Value"]
             formated_d["+ " + parent_d[i]["Key"]] = parent_d[i]["Value_new"]
     return formated_d
+
+
+def sort_dict(dict_to_sort: dict):
+    sorted_dict = {}
+    for key in sorted(dict_to_sort.keys(),
+                      key=lambda x: x.strip('+').strip('-').strip()):
+        value = dict_to_sort[key]
+        if isinstance(value, dict):
+            value = sort_dict(value)
+        sorted_dict[key] = value
+    return sorted_dict
 
 
 def formating_parents(dict_data):
@@ -38,6 +50,7 @@ def stylish(raw_data, recursion_depth=0):
         else:
             stylish_dict.update(formating_children(raw_data))
     if recursion_depth == 1:
+        stylish_dict = sort_dict(stylish_dict)
         stylish_dict = json.dumps(stylish_dict,
                                   indent=4).replace(',', '').replace('"', '')
         stylish_dict = stylish_dict.replace('  +', '+').replace('  -', '-')
