@@ -87,8 +87,19 @@ def get_data(filepath_1, filepath_2, formater=""):
     return data_list
 
 
-def generate_diff(filepath1, filepath2):
-    return stylish_format.stylish(get_data(filepath1, filepath2))
+def generate_diff(filepath1, filepath2, format_type):
+    if format_type == "plain":
+        print(plain_format.plain(
+              plain_format.same_deleter(
+                  get_data(filepath1, filepath2, format_type))))
+    elif format_type == "json":
+        print(json.dumps(
+            get_data(
+                filepath1, filepath2, format_type),
+            indent=4).replace(',', '').replace('"', ''))
+    else:
+        print(stylish_format.stylish(
+            get_data(filepath1, filepath2, format_type)))
 
 
 def main():
