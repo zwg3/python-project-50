@@ -2,6 +2,7 @@
 import argparse
 from . import stylish_format
 from . import plain_format
+from . import json_format
 import json
 import yaml
 
@@ -40,10 +41,9 @@ def print_final(arguments):
               plain_format.same_deleter(
                   get_data(filepath1, filepath2, format_type))))
     elif format_type == "json":
-        print(json.dumps(
+        print(json_format.json_(
             get_data(
-                filepath1, filepath2, format_type),
-            indent=4).replace(',', '').replace('"', ''))
+                filepath1, filepath2, format_type)))
     else:
         print(stylish_format.stylish(
             get_data(filepath1, filepath2, format_type)))
@@ -93,10 +93,9 @@ def generate_diff(filepath1, filepath2, format_type="stylish"):
                 plain_format.same_deleter(
                     get_data(filepath1, filepath2, format_type))))
     elif format_type == "json":
-        return (json.dumps(
+        return (json_format.json_(
             get_data(
-                filepath1, filepath2, format_type),
-            indent=4).replace(',', '').replace('"', ''))
+                filepath1, filepath2, format_type)))
     else:
         return (stylish_format.stylish(
             get_data(filepath1, filepath2, format_type)))
