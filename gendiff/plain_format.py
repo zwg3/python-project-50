@@ -41,7 +41,7 @@ def plain_formater_complex(property, parent=''):
     elif isinstance(property['Value_new'], dict):
         return (f"{start_string}'{parent_string}{property['Key']}'"
                 f" was updated."
-                f" From {json.dumps(property['Value'])} to '[complex value]'")
+                f" From {json.dumps(property['Value'])} to [complex value]")
     else:
         if parent_string:
             return (f"{start_string}'{parent_string}{property['Key']}'"
