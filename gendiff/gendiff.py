@@ -87,7 +87,7 @@ def get_data(filepath_1, filepath_2, formater=""):
     return data_list
 
 
-def generate_diff(filepath1, filepath2, format_type):
+def generate_diff(filepath1, filepath2, format_type="stylish"):
     if format_type == "plain":
         print(plain_format.plain(
               plain_format.same_deleter(
