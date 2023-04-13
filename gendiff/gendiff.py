@@ -34,21 +34,6 @@ def open_files(filepath):
         return filepath
 
 
-def print_final(arguments):
-    filepath1, filepath2, format_type = arguments
-    if format_type == "plain":
-        print(plain_format.plain(
-              plain_format.same_deleter(
-                  get_data(filepath1, filepath2, format_type))))
-    elif format_type == "json":
-        print(json_format.json_(
-            get_data(
-                filepath1, filepath2, format_type)))
-    else:
-        print(stylish_format.stylish(
-            get_data(filepath1, filepath2, format_type)))
-
-
 def get_data(filepath_1, filepath_2, formater=""):
     first = open_files(filepath_1)
     second = open_files(filepath_2)
@@ -102,7 +87,7 @@ def generate_diff(filepath1, filepath2, format_type="stylish"):
 
 
 def main():
-    print_final(get_arguments())
+    print(generate_diff(*get_arguments()))
 
 
 if __name__ == "__main__":
