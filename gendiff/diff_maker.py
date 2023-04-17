@@ -1,5 +1,5 @@
 from . import data_reader
-#from data_reader import file_opener
+
 
 def make_diff(filepath_1, filepath_2, formater=""):
     pattern_1 = data_reader.file_opener(filepath_1)
@@ -8,7 +8,8 @@ def make_diff(filepath_1, filepath_2, formater=""):
     data_list = {}
     for i in dict.fromkeys(sorted(keys)):
         diff = {}
-        if not (isinstance(pattern_1.get(i), dict) and isinstance(pattern_2.get(i), dict)):
+        if not (isinstance(pattern_1.get(i), dict)
+           and isinstance(pattern_2.get(i), dict)):
             if i in pattern_1 and i in pattern_2:
                 if pattern_1.get(i) == pattern_2.get(i):
                     diff["Key"] = i

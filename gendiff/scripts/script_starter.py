@@ -2,6 +2,7 @@
 from gendiff import gendiff
 from gendiff import cli
 
+
 def main():
     print(gendiff.generate_diff(*cli.get_arguments()))
 

@@ -1,6 +1,7 @@
 import json
 import yaml
-    
+
+
 def file_reader(filepath, opened_file):
     if str(filepath).endswith('.json'):
         file = json.load(opened_file)
@@ -10,7 +11,8 @@ def file_reader(filepath, opened_file):
         return file
     else:
         raise Exception("Please use .json or .yaml files only")
-    
+
+
 def file_opener(filepath):
     if isinstance(filepath, dict):
         return filepath
