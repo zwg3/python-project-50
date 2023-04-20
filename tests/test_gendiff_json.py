@@ -9,34 +9,33 @@ from gendiff import diff_maker
 @pytest.fixture
 def correct_open():
     with open(os.path.abspath(
-            'tests/fixtures/test_json/diff_open.md')) as correct_result:
-        correct_result = correct_result.read().rstrip('\n')
-    return correct_result
+            'tests/fixtures/test_json/diff_open.md')) as correct_res:
+        correct_res = correct_res.read().rstrip('\n')
+    return correct_res
 
 
 @pytest.fixture
 def correct_raw():
     with open(os.path.abspath(
-            'tests/fixtures/test_json/diff_result_raw.md')) as correct_result:
-        correct_result = correct_result.read().rstrip('\n')
-    return correct_result
+            'tests/fixtures/test_json/diff_result_raw.md')) as correct_res:
+        correct_res = correct_res.read().rstrip('\n')
+    return correct_res
 
 
 @pytest.fixture
 def correct_stylish():
     with open(
-            'tests/fixtures/test_json/diff_result_stylish.md'
-             ) as correct_result:
-        correct_result = correct_result.read().rstrip('\n')
-    return correct_result
+            'tests/fixtures/test_json/diff_result_stylish.md') as correct_res:
+        correct_res = correct_res.read().rstrip('\n')
+    return correct_res
 
 
 @pytest.fixture
 def correct_plain():
     with open(
-            'tests/fixtures/test_json/diff_result_plain.md') as correct_result:
-        correct_result = correct_result.read().rstrip('\n')
-    return correct_result
+            'tests/fixtures/test_json/diff_result_plain.md') as correct_res:
+        correct_res = correct_res.read().rstrip('\n')
+    return correct_res
 
 
 @pytest.fixture
@@ -71,14 +70,14 @@ def plain_output():
     return plain_diff
 
 
-@pytest.mark.parametrize("result, correct_result",
+@pytest.mark.parametrize("result, correct_res",
                          [
                              ("open_file_output", "correct_open"),
                              ("raw_diff_output", "correct_raw"),
                              ("stylish_output", "correct_stylish"),
                              ("plain_output", "correct_plain")
                          ])
-def test_all(result, correct_result, request):
+def test_all(result, correct_res, request):
     result = request.getfixturevalue(result)
-    correct_result = request.getfixturevalue(correct_result)
-    assert result == correct_result
+    correct_res = request.getfixturevalue(correct_res)
+    assert result == correct_res
