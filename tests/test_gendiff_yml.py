@@ -71,11 +71,11 @@ def plain_output():
 
 
 @pytest.mark.parametrize("result, correct_result", [
-                                    ("open_file_output", "correct_open"),
-                                    ("raw_diff_output", "correct_raw"),
-                                    ("stylish_output", "correct_stylish"),
-                                    ("plain_output", "correct_plain")
-                                    ])
+                        ("open_file_output", "correct_open"),
+                        ("raw_diff_output", "correct_raw"),
+                        ("stylish_output", "correct_stylish"),
+                        ("plain_output", "correct_plain")
+                                                    ])
 def test_all(result, correct_result, request):
     result = request.getfixturevalue(result)
     correct_result = request.getfixturevalue(correct_result)

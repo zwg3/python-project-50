@@ -9,7 +9,7 @@ from gendiff import diff_maker
 @pytest.fixture
 def correct_open():
     with open(os.path.abspath(
-     'tests/fixtures/test_json/diff_open.md')) as correct_result:
+            'tests/fixtures/test_json/diff_open.md')) as correct_result:
         correct_result = correct_result.read().rstrip('\n')
     return correct_result
 
@@ -17,7 +17,7 @@ def correct_open():
 @pytest.fixture
 def correct_raw():
     with open(os.path.abspath(
-     'tests/fixtures/test_json/diff_result_raw.md')) as correct_result:
+            'tests/fixtures/test_json/diff_result_raw.md')) as correct_result:
         correct_result = correct_result.read().rstrip('\n')
     return correct_result
 
@@ -25,7 +25,8 @@ def correct_raw():
 @pytest.fixture
 def correct_stylish():
     with open(
-         'tests/fixtures/test_json/diff_result_stylish.md') as correct_result:
+            'tests/fixtures/test_json/diff_result_stylish.md'
+            ) as correct_result:
         correct_result = correct_result.read().rstrip('\n')
     return correct_result
 
@@ -33,7 +34,7 @@ def correct_stylish():
 @pytest.fixture
 def correct_plain():
     with open(
-          'tests/fixtures/test_json/diff_result_plain.md') as correct_result:
+            'tests/fixtures/test_json/diff_result_plain.md') as correct_result:
         correct_result = correct_result.read().rstrip('\n')
     return correct_result
 
@@ -47,8 +48,8 @@ def open_file_output():
 @pytest.fixture
 def stylish_output():
     diff = diff_maker.make_diff((
-     os.path.abspath('tests/fixtures/test_json/file3.json')),
-     (os.path.abspath('tests/fixtures/test_json/file4.json')))
+        os.path.abspath('tests/fixtures/test_json/file3.json')),
+        (os.path.abspath('tests/fixtures/test_json/file4.json')))
     stylish_diff = stylish_format.stylish(diff)
     return stylish_diff
 
@@ -71,11 +72,11 @@ def plain_output():
 
 
 @pytest.mark.parametrize("result, correct_result", [
-                                        ("open_file_output", "correct_open"),
-                                        ("raw_diff_output", "correct_raw"),
-                                        ("stylish_output", "correct_stylish"),
-                                        ("plain_output", "correct_plain")
-                                                   ])
+                        ("open_file_output", "correct_open"),
+                        ("raw_diff_output", "correct_raw"),
+                        ("stylish_output", "correct_stylish"),
+                        ("plain_output", "correct_plain")
+                                                    ])
 def test_all(result, correct_result, request):
     result = request.getfixturevalue(result)
     correct_result = request.getfixturevalue(correct_result)
