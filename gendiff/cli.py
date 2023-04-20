@@ -8,8 +8,8 @@ def get_arguments():
                                                  f'{" difference."}')
     parser.add_argument('first_file')
     parser.add_argument('second_file')
-    parser.add_argument('-f', '--format',
-                        help='set format of output', default='stylish_format')
+    parser.add_argument('-f', '--format', nargs='?',
+                        help='set format of output', default='stylish')
     args = parser.parse_args()
     filepath1 = args.first_file
     filepath2 = args.second_file

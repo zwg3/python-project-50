@@ -7,43 +7,73 @@ from gendiff import diff_maker
 
 
 @pytest.fixture
-def open_file_1():
-    return data_reader.file_opener(os.path.abspath(
-        'tests/fixtures/test_yml/file3.yml'))
-
-
-def test_open(open_file_1):
+def correct_open():
     with open(os.path.abspath(
-            'tests/fixtures/test_yml/diff_open.md')) as test_file:
-        test_file = test_file.read().rstrip('\n')
-    assert str(open_file_1) == test_file
+        'tests/fixtures/test_yml/diff_open.md')) as correct_result:
+        correct_result = correct_result.read().rstrip('\n')
+    return correct_result
 
 
-def test_gen_raw():
-    files = diff_maker.make_diff((
-        os.path.abspath('tests/fixtures/test_yml/file3.yml')),
-        (os.path.abspath('tests/fixtures/test_yml/file4.yml')))
+@pytest.fixture
+def correct_raw():
     with open(os.path.abspath(
-            'tests/fixtures/test_yml/diff_result_raw.md')) as test_file:
-        test_file = test_file.read().rstrip('\n')
-    assert str(files) == test_file
+        'tests/fixtures/test_yml/diff_result_raw.md')) as correct_result:
+         correct_result = correct_result.read().rstrip('\n')
+    return correct_result
 
 
-def test_stylish():
-    raw = diff_maker.make_diff((
+@pytest.fixture
+def correct_stylish():
+    with open('tests/fixtures/test_yml/diff_result_stylish.md') as correct_result:
+               correct_result = correct_result.read().rstrip('\n')
+    return correct_result
+
+
+@pytest.fixture
+def correct_plain():
+    with open('tests/fixtures/test_yml/diff_result_plain.md') as correct_result:
+               correct_result = correct_result.read().rstrip('\n')
+    return correct_result
+
+
+@pytest.fixture
+def open_file_output():
+    return str(data_reader.file_opener(os.path.abspath(
+        'tests/fixtures/test_yml/file3.yml')))
+
+
+
+@pytest.fixture
+def stylish_output():
+    diff = diff_maker.make_diff((
+    os.path.abspath('tests/fixtures/test_yml/file3.yml')),
+    (os.path.abspath('tests/fixtures/test_yml/file4.yml')))
+    stylish_diff = stylish_format.stylish(diff)
+    return stylish_diff
+
+
+@pytest.fixture
+def raw_diff_output():
+    raw_diff = diff_maker.make_diff((
         os.path.abspath('tests/fixtures/test_yml/file3.yml')),
         (os.path.abspath('tests/fixtures/test_yml/file4.yml')))
-    final_diff = stylish_format.stylish(raw)
-    with open('tests/fixtures/test_yml/diff_result_stylish.md') as test_file:
-        test_file = test_file.read().rstrip('\n')
-    assert final_diff == test_file
+    return str(raw_diff)
 
 
-def test_plain():
-    raw = diff_maker.make_diff((
+@pytest.fixture
+def plain_output():
+    raw_diff = diff_maker.make_diff((
         os.path.abspath('tests/fixtures/test_yml/file3.yml')),
         (os.path.abspath('tests/fixtures/test_yml/file4.yml')))
-    final_diff = plain_format.plain(plain_format.same_deleter(raw))
-    with open('tests/fixtures/test_yml/diff_result_plain.md') as test_file:
-        test_file = test_file.read().rstrip('\n')
-    assert final_diff == test_file
+    plain_diff = plain_format.plain(plain_format.same_deleter(raw_diff))
+    return plain_diff
+
+
+@pytest.mark.parametrize("result, correct_result",[("open_file_output", "correct_open"),
+                                                   ("raw_diff_output", "correct_raw"),
+                                                   ("stylish_output", "correct_stylish"),
+                                                   ("plain_output", "correct_plain")])
+def test_all(result, correct_result, request):
+    result = request.getfixturevalue(result)
+    correct_result = request.getfixturevalue(correct_result)
+    assert result == correct_result

@@ -13,6 +13,9 @@ def generate_diff(filepath1, filepath2, format_type="stylish"):
         return (json_format.json_(
             diff_maker.make_diff(
                 filepath1, filepath2, format_type)))
-    else:
+    elif format_type == "stylish":
         return (stylish_format.stylish(
             diff_maker.make_diff(filepath1, filepath2, format_type)))
+    else:
+        raise Exception('Please use the following options only: \
+"stylish", "json"  or "plain".')
