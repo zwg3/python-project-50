@@ -14,8 +14,6 @@ def file_reader(filepath, opened_file):
 
 
 def file_opener(filepath):
-    if isinstance(filepath, dict):
-        return filepath
     with open(filepath) as opened_file:
         opened_file = file_reader(filepath, opened_file)
         return opened_file

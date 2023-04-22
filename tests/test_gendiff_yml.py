@@ -1,9 +1,8 @@
 import pytest
 import os
-from gendiff.formaters import stylish_format
-from gendiff.formaters import plain_format
 from gendiff import data_reader
 from gendiff import diff_maker
+from gendiff import gendiff
 
 
 @pytest.fixture
@@ -46,27 +45,27 @@ def open_file_output():
 
 @pytest.fixture
 def stylish_output():
-    diff = diff_maker.make_diff((
+    stylish_diff = gendiff.generate_diff((
         os.path.abspath('tests/fixtures/test_yml/file3.yml')),
         (os.path.abspath('tests/fixtures/test_yml/file4.yml')))
-    stylish_diff = stylish_format.stylish(diff)
     return stylish_diff
 
 
 @pytest.fixture
 def raw_diff_output():
-    raw_diff = diff_maker.make_diff((
-        os.path.abspath('tests/fixtures/test_yml/file3.yml')),
-        (os.path.abspath('tests/fixtures/test_yml/file4.yml')))
+    raw_diff = diff_maker.make_diff((diff_maker.file_prep(
+        os.path.abspath('tests/fixtures/test_yml/file3.yml'))),
+        diff_maker.file_prep(
+        (os.path.abspath('tests/fixtures/test_yml/file4.yml'))))
     return str(raw_diff)
 
 
 @pytest.fixture
 def plain_output():
-    raw_diff = diff_maker.make_diff((
+    plain_diff = gendiff.generate_diff((
         os.path.abspath('tests/fixtures/test_yml/file3.yml')),
-        (os.path.abspath('tests/fixtures/test_yml/file4.yml')))
-    plain_diff = plain_format.plain(plain_format.same_deleter(raw_diff))
+        (os.path.abspath('tests/fixtures/test_yml/file4.yml')),
+        format_type='plain')
     return plain_diff
 
 

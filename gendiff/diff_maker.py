@@ -1,9 +1,12 @@
 from . import data_reader
 
 
-def make_diff(filepath_1, filepath_2, formater=""):
-    pattern_1 = data_reader.file_opener(filepath_1)
-    pattern_2 = data_reader.file_opener(filepath_2)
+def file_prep(filepath):
+    pattern = data_reader.file_opener(filepath)
+    return pattern
+
+
+def make_diff(pattern_1, pattern_2, formater=""):
     keys = set(list(pattern_1) + list(pattern_2))
     data_list = {}
     for i in dict.fromkeys(sorted(keys)):
@@ -35,6 +38,6 @@ def make_diff(filepath_1, filepath_2, formater=""):
         else:
             diff["Key"] = i
             diff["Type"] = "parent"
-            diff["Value"] = make_diff(pattern_1[i], pattern_2[i], '')
+            diff["Value"] = make_diff(pattern_1[i], pattern_2[i])
             data_list[i] = diff
     return data_list
